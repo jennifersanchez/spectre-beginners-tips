@@ -1,6 +1,32 @@
 # Spectre tips for beginners
 This repo holds tips and notes for how to do useful things when getting up to speed with [spectre](spectre-code.org).
 
+# install code
+1. Clone the Spectre repository from GitHub:
+git clone git@github.com:sxs-collaboration/spectre.git
+
+2. Retrieve the docker image:
+docker pull sxscollaboration/spectrebuildenv:latest
+
+3. Start the docker container
+docker run -v /Your/path/to/Spectre/:/SPECTRE_ROOT --name CONTAINER_NAME -i -t sxscollaboration/spectrebuildenv:latest /bin/bash
+
+Just need to replace the above command with the full path to your clone of Spectre
+(The --name CONTAINER_NAME is optional, where CONTAINER_NAME is a name of your choice. If you don't name your container, docker will generate an arbitrary name.) You will end up in a shell in a docker container, as root (you need to be root). For the following steps, stay inside the docker container as root.
+
+4. Make a build directory somewhere inside the container, (e.g. /work/spectre-build-gcc), and cd into it. (You should already be in /work/)
+mkdir spectre-build-gcc
+
+5. Build Spectre:
+cmake -D CHARM_ROOT=/work/charm/multicore-linux64-gcc /SPECTRE_ROOT/
+
+6.  make -jN
+(Replace N with the number of cores to use)
+
+7.make test-executables -jN (to compile the test executables)
+
+8. ctest (to run the tests.)
+
 # Tips for writing new spectre code
 ## Things to do before making a pull request to merge into `sxs-collaboration/spectre`
 
