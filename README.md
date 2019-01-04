@@ -78,3 +78,5 @@ To see all your containers: `docker ps -a`
 To remove a container: `docker rm --force NameOfContainer`
 
 To start docker: `docker start -i ContainerName` or `docker start -i ContainerID`
+
+To do git commands in docker: `git init`
