@@ -22,6 +22,7 @@ Just need to replace the above command with the full path to your clone of Spect
 
 6.  `make -jN`
 (Replace N with the number of cores to use)
+If on your macbook, try `make -j1`
 
 7.`make test-executables -jN` (to compile the test executables)
 
