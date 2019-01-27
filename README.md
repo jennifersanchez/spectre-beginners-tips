@@ -18,7 +18,7 @@ Just need to replace the above command with the full path to your clone of Spect
 `mkdir spectre-build-gcc`
 
 5. Build Spectre:
-`cmake -D CHARM_ROOT=/work/charm/multicore-linux64-gcc /SPECTRE_ROOT/`
+`cmake -D CHARM_ROOT=/work/charm/multicore-linux64-gcc /SPECTRE_ROOT/` where /SPECTRE_ROOT/ is the path in step 3
 
 6.  `make -jN`
 (Replace N with the number of cores to use)
