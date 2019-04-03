@@ -100,16 +100,16 @@ To start docker: `docker start -i ContainerName` or `docker start -i ContainerID
     
 6. Once we have edited Input3DPeriodic.yaml, we excute it,<br />
       `./EvolveScalarWave3D --input-file Input3DPeriodic.yaml` <br />
-You should now see two output files (ScalarWave3DPeriodicReductions.h5 and ScalarWave3DPeriodicVolume0.h5). If you didn't,      then checkout https://spectre-code.org/tutorial_visualization.html (specifically the Running an Evolution Executable section).
+  - You should now see two output files (ScalarWave3DPeriodicReductions.h5 and ScalarWave3DPeriodicVolume0.h5). If you didn't,      then checkout https://spectre-code.org/tutorial_visualization.html (specifically the Running an Evolution Executable section).
 
 4. We have H5 files, however ParaView cannot read these so we need to convert the ScalarWave3DPeriodicVolume0.h5 into a .xmf<br />
-  -In order to do this we need to copy the scripts: `ln -s /YourPathToSpectre/tools/GenerateXdmf.py .` <br />
-  -Next we need to run the script: `python GenerateXdmf.py --file-prefix ScalarWave3DPeriodicVolume --output ScalarWave3DPeriodicVolume` and if this doesn't work, look at `python GenerateXdmf.py -h` for the help text.
+  - In order to do this we need to copy the scripts: `ln -s /YourPathToSpectre/tools/GenerateXdmf.py .` <br />
+  - Next we need to run the script: `python GenerateXdmf.py --file-prefix ScalarWave3DPeriodicVolume --output ScalarWave3DPeriodicVolume` and if this doesn't work, look at `python GenerateXdmf.py -h` for the help text.
 
 5. Everything is complete, now we just need to copy all the ScalarWave3DPeriodicVolume files onto our local machine so we can use Paraview. In the command below, "PathToWaveTestDirectory" refers to step 3. <br />
       `scp YourOceanUsername@ocean:/PathToWaveTestDirectory/ScalarWave3DPeriodicVolume* .` 
       
 6. Open Paraview and open ScalarWave3DPeriodicVolume.xmf. <br />
-  -A window should appear that asks your what reader you want to open the data with. Select "XDMF Reader" because the other options will crash. <br />
-  -Click "Apply" and change the Coloring option from "ErrorPhi_x" to Psi. <br />
-  -Click play and we're done!
+  - A window should appear that asks your what reader you want to open the data with. Select "XDMF Reader" because the other options will crash. <br />
+  - Click "Apply" and change the Coloring option from "ErrorPhi_x" to Psi. <br />
+  - Click play and we're done!
