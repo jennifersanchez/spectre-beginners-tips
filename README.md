@@ -80,4 +80,34 @@ To remove a container: `docker rm --force NameOfContainer`
 
 To start docker: `docker start -i ContainerName` or `docker start -i ContainerID`
 
-To do git commands in docker: `git init`
+# Visualizing Waves on Paraview (with OCEAN)
+1. On ocean, make sure you have compilied spectre.
+
+2. In spectre, `cd build`, then `make EvolveScalarWave3D`. EvolveScalarWave3D is just a program like cd, ls, ln -s, etc.
+  -If this isn't working then maybe you didn't load your OCEAN environment and spectre modules. 
+      Try `. $SPECTRE_HOME/support/Environments/ocean_gcc.sh` and `spectre_load_modules`.
+  -Still not working? Maybe you didn't compile spectre.
+      Try `make -j10`.
+3. Somewhere NOT in your spectre directory, make a new directory for your wave tests and cd into it. For this example, I will call this directory WaveTest. 
+
+4. Here we're going to set up an enviroment to run the input file and obtain output files.
+      `cp /YourPathToSpectre/tests/InputFiles/ScalarWave/Input3DPeriodic.yaml .`
+      `ln -s /YourPathToSpectre/build/bin/EvolveScalarWave3D .`
+      
+5. Now we can edit out input file, Input3DPeriodic.yaml.
+    *edits input file*
+    
+6. Once we have edited Input3DPeriodic.yaml, we excute it,
+      `./EvolveScalarWave3D --input-file Input3DPeriodic.yaml`
+You should now see two output files (ScalarWave3DPeriodicReductions.h5 and ScalarWave3DPeriodicVolume0.h5). If you didn't,      then checkout https://spectre-code.org/tutorial_visualization.html (specifically the Running an Evolution Executable section).
+
+4. We have H5 files, however ParaView cannot read these so we need to convert the ScalarWave3DPeriodicVolume0.h5 into a .xmf
+  -In order to do this we need to copy the scripts: `ln -s /YourPathToSpectre/tools/GenerateXdmf.py .`
+  -Next we need to run the script: `python GenerateXdmf.py --file-prefix ScalarWave3DPeriodicVolume --output ScalarWave3DPeriodicVolume` and if this doesn't work, look at `python GenerateXdmf.py -h` for the help text.
+
+5. Everything is complete, now we just need to copy all the ScalarWave3DPeriodicVolume files onto our local machine so we can use Paraview. In the command below, "PathToWaveTestDirectory" refers to step 3.
+      `scp YourOceanUsername@ocean:/PathToWaveTestDirectory/ScalarWave3DPeriodicVolume* .` 
+6. Open Paraview and open ScalarWave3DPeriodicVolume.xmf. 
+  -A window should appear that asks your what reader you want to open the data with. Select "XDMF Reader" because the other options will crash. 
+  -Click "Apply" and change the Coloring option from "ErrorPhi_x" to Psi. 
+  -Click play and we're done!
