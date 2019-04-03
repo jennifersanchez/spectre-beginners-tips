@@ -85,9 +85,13 @@ To start docker: `docker start -i ContainerName` or `docker start -i ContainerID
 
 2. In spectre, `cd build`, then `make EvolveScalarWave3D`. EvolveScalarWave3D is just a program like cd, ls, ln -s, etc.
   -If this isn't working then maybe you didn't load your OCEAN environment and spectre modules. 
+  
       Try `. $SPECTRE_HOME/support/Environments/ocean_gcc.sh` and `spectre_load_modules`.
+      
   -Still not working? Maybe you didn't compile spectre.
+  
       Try `make -j10`.
+      
 3. Somewhere NOT in your spectre directory, make a new directory for your wave tests and cd into it. For this example, I will call this directory WaveTest. 
 
 4. Here we're going to set up an enviroment to run the input file and obtain output files.
